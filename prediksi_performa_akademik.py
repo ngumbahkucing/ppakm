@@ -115,7 +115,7 @@ def main():
         Campus_organization = st.slider('Jumlah Organisasi Kampus Yang Diikuti :blue[(0,073)]', 0, 4)
 
 
-        with open("prediksi_performa_akademik.pkl", "rb") as file:
+        with open("prediksi_performa_akademik.sav", "rb") as file:
             model = pickle.load(file)
 
         predit = ''
