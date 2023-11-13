@@ -57,21 +57,21 @@ def main():
 
         col1,col2 = st.columns(2)
         with col1:
-            Total_login = st.slider('Jumlah Login LMS :blue[(0,27)]', 0, 140)
-            N_access_forum = st.slider('Jumlah Akses Forum LMS :blue[(0,25)]', 0, 3000)
-            N_access_didactic_units = st.slider('Jumlah Akses Materi :blue[(0,03)]', 0, 750)
-            Total_assignments = st.slider('Jumlah Tugas :blue[(-0,26)]', 0, 1000)
-            N_assignments_submitted = st.slider('Jumlah Upload Tugas :blue[(0,38)]', 0, 150)
-            N_access_questionnaires = st.slider('Jumlah Membuka Quiz :blue[(0,01)]', 0, 1000)
-            N_attempts_questionnaires = st.slider('Jumlah Melengkapi Quiz :blue[(0,01)]', 0, 1000)
+            Total_login = st.slider('Jumlah Login LMS :blue[(0,120)]', 0, 140)
+            N_access_forum = st.slider('Jumlah Akses Forum LMS :blue[(0,117)]', 0, 3000)
+            N_access_didactic_units = st.slider('Jumlah Akses Materi :blue[(0,077)]', 0, 750)
+            Total_assignments = st.slider('Jumlah Tugas :blue[(0,066)]', 0, 1000)
+            N_assignments_submitted = st.slider('Jumlah Upload Tugas :blue[(0,187)]', 0, 150)
+            N_access_questionnaires = st.slider('Jumlah Membuka Quiz :blue[(0,038)]', 0, 1000)
+            N_attempts_questionnaires = st.slider('Jumlah Melengkapi Quiz :blue[(0,039)]', 0, 1000)
 
         with col2:
-            N_answered_questions = st.slider('Jumlah Menjawab Quiz :blue[(0,02)]', 0, 120)
-            N_questionnaire_views = st.slider('Jumlah Melihat Quiz :blue[(0,01)]', 0, 1000)
-            N_questionnaires_submitted = st.slider('Jumlah Mengirim Quiz :blue[(0.01)]', 0, 40)
-            N_reviews_questionnaire = st.slider('Jumlah Ulasan Quiz :blue[(0,03)]', 0, 500)
-            Days_first_access_x = st.slider('Minggu Keberapa Akses LMS :blue[(0,04)]', 0, 3)
-            N_entries_course_x = st.slider('Jumlah Masuk Ke Mata Kuliah :blue[(0,03)]', 0, 3000)
+            N_answered_questions = st.slider('Jumlah Menjawab Quiz :blue[(0,055)]', 0, 120)
+            N_questionnaire_views = st.slider('Jumlah Melihat Quiz :blue[(0,033)]', 0, 1000)
+            N_questionnaires_submitted = st.slider('Jumlah Mengirim Quiz :blue[(0,043)]', 0, 40)
+            N_reviews_questionnaire = st.slider('Jumlah Ulasan Quiz :blue[(0,072)]', 0, 500)
+            Days_first_access_x = st.slider('Minggu Keberapa Akses LMS :blue[(0,014)]', 0, 3)
+            N_entries_course_x = st.slider('Jumlah Masuk Ke Mata Kuliah :blue[(0,057)]', 0, 3000)
 
 
         st.subheader("Masukkan Data Non Akademik")
@@ -79,18 +79,18 @@ def main():
         cols,colss = st.columns(2)
         with cols:
             Gender = st.radio(
-                    'Jenis Kelamin :blue[(0,12)]',
+                    'Jenis Kelamin :blue[(0,025)]',
                     ('Pria', 'Wanita'))
             if Gender == 'Pria':
                 Gender = 1
             else:
                 Gender = 0
 
-            Campus_organization = st.slider('Jumlah Organisasi Kampus Yang Diikuti :blue[(0,03)]', 0, 4)
+            Campus_organization = st.slider('Jumlah Organisasi Kampus Yang Diikuti :blue[(0,011)]', 0, 4)
 
         with colss:
             Economy = st.selectbox(
-                    'Pendapatan Orang Tua :blue[(0,06)]',
+                    'Pendapatan Orang Tua :blue[(0,025)]',
                     ('100.000 - 600.000', '500.000 - 1.000.000', '1.000.000 - 2.500.000', 
                         '2.500.000 - 5.000.000', '5.000.000 - 7.500.000',
                         '7.500.000 - 10.000.000', '> 10.000.000')) 
@@ -110,7 +110,7 @@ def main():
                 Economy = 7
 
             Domicile = st.selectbox(
-                    'Jarak Kampus dengan Domisili :blue[(0,03)]',
+                    'Jarak Kampus dengan Domisili :blue[(0,022)]',
                     ('Dalam Kota', 'Kota Sebelah', 'Jarak Satu Kota', 'Dalam Satu Pulau', 'Diluar Pulau'))
 
             if Domicile == 'Dalam Kota':
