@@ -36,7 +36,7 @@ def main():
         st.write('Prediksi performa akademik ini menggunakan dua sumber data yaitu 1). Data Akademik yang berasal dari aktifitas mahasiswa di LMS (Moodle),  2). Data non-akademik (ekonomi, domisili, gender, keikutsertaan mahasiswa dalam berorganisasi kampus). Sistem informasi prediksi ini sangat tepat jika digunakan untuk memprediksi performa akademik mahasiswa semester dua dan empat.')
         
         st.subheader("Masukkan Data Diri Anda")
-        nama = st.text_input("Nama")
+        nama = st.text_input('Nama :blue[(Nama Anda tidak akan dipublikasikan/disalahgunakan)]')
 
         colus,colkel = st.columns(2)
         with colus:
