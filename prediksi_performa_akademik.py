@@ -452,13 +452,17 @@ def main():
 
         st.image(image, caption='Bobot Fitur')
 
+        st.write('Untuk informasi lebih lanjut terkait Prediksi Performa Akademik Mahasiswa ini, dapat menghubungi Email: :blue[arifin.m@umk.ac.id] ')
+
+        txt_input= st.text_input('Masukkan Kode Download, Untuk Mendownload Hasil Prediksi', type="password")
 
         with open('PenilaianMasukan.csv','rb') as f:
-           st.download_button('Download Penilaian', f, file_name='PenilaianMasukan.csv')  # Defaults to 'text/plain'
+            if txt_input == "Ijin Sedot":    
+                st.download_button('Download Penilaian', f, file_name='PenilaianMasukan.csv', disabled=not txt_input)  # Defaults to 'text/plain'
 
         with open('Data_prediksi_pengguna.csv','rb') as f:
-           st.download_button('Download Hasil Prediksi', f, file_name='HasilPrediksi.csv')  # Defaults to 'text/plain'
-
+           if txt_input == "Ijin Sedot": 
+                st.download_button('Download Hasil Prediksi', f, file_name='HasilPrediksi.csv')  # Defaults to 'text/plain'
 
 
 if __name__ == '__main__':
