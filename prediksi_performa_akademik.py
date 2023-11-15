@@ -36,7 +36,7 @@ def main():
         st.write('Prediksi performa akademik ini menggunakan dua sumber data yaitu 1). Data Akademik yang berasal dari aktifitas mahasiswa di LMS (Moodle),  2). Data non-akademik (ekonomi, domisili, gender, keikutsertaan mahasiswa dalam berorganisasi kampus). Sistem informasi prediksi ini sangat tepat jika digunakan untuk memprediksi performa akademik mahasiswa semester dua dan empat.')
         
         st.subheader("Masukkan Data Diri Anda")
-        nama = st.text_input('Nama :blue[(Nama Anda tidak akan dipublikasikan/disalahgunakan)]')
+        nama = st.text_input("Nama")
 
         colus,colkel = st.columns(2)
         with colus:
@@ -451,6 +451,15 @@ def main():
         st.write('Dalam melakukan prediksi Model ini memiliki tingkat kesalahan sebesar :blue[37%], Adapun nilai bobot dari masing-masing fitur ditunjukkan pada halaman prediksi dan pada gambar dibawah ini.')
 
         st.image(image, caption='Bobot Fitur')
+
+
+        with open('PenilaianMasukan.csv','rb') as f:
+           st.download_button('Download Penilaian', f, file_name='PenilaianMasukan.csv')  # Defaults to 'text/plain'
+
+        with open('Data_prediksi_pengguna.csv','rb') as f:
+           st.download_button('Download Hasil Prediksi', f, file_name='HasilPrediksi.csv')  # Defaults to 'text/plain'
+
+
 
 if __name__ == '__main__':
     main()
