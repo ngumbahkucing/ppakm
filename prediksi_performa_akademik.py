@@ -45,16 +45,28 @@ def main():
 
         st.subheader("Masukkan Data Akademik")
 
-        Ipk = st.text_input('IPK Semester Lalu')
-        Semester = st.selectbox('Semester ke-', ('2','3','4'))
-        Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
-        if Prestasi == "Tidak Ada":
-            Prestasi = 0;
-        elif Prestasi == "Akademik":
-            Prestasi = 1;
+        if status == "Mahasiswa":
+            Ipk = st.text_input('IPK Semester Lalu')
+            Ijazah = 0
+            Semester = st.selectbox('Semester ke-', ('2','3','4'))
+            Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
+            if Prestasi == "Tidak Ada":
+                Prestasi = 0;
+            elif Prestasi == "Akademik":
+                Prestasi = 1;
+            else:
+                Prestasi = 2;
         else:
-            Prestasi = 2;
-            
+            Ipk = 0
+            Semester = 0
+            Ijazah = st.text_input('Nilai Ijazah')
+            Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
+            if Prestasi == "Tidak Ada":
+                Prestasi = 0;
+            elif Prestasi == "Akademik":
+                Prestasi = 1;
+            else:
+                Prestasi = 2;        
 
         st.subheader("Masukkan Data Non Akademik")
 
@@ -130,13 +142,13 @@ def main():
             #Simpan data
             df = pd.read_csv("Data_prediksi_pengguna.csv")
             new_data = {"Nama":nama, "Status":status, "Jenis Kelamin":jekel, "Umur":umur,
-                        "IPK":ipk, "Semester": semester,
+                        "Nilai Ijazah":Ijazah, "IPK":ipk, "Semester": semester,
                         "Ekonomi":pendap, "Saudara":saudara, "Hasil Prediksi":predit
                         }
 
             df = df.append(new_data, ignore_index=True)
             df.to_csv("Data_prediksi_pengguna.csv", index=False)
-            v_data = df.iloc[:, 1:8]
+            v_data = df.iloc[:, 1:9]
             vlast= v_data.tail(1)
             st.dataframe(vlast.set_index(vlast.columns[0]))
             
@@ -145,11 +157,13 @@ def main():
         isi = ( "Prediksi Performa Akademik Mahasiswa Menggunakan Data Non-Akademik dan Akademik" + "\n" + "\n" +
                 "#Data Non Akademik" + "\n" +
                 "Gender = " + jekel + "\n" +
+                "Umur = " + umur + "\n" +
                 "Pendapatan Orang Tua = " + pendap + "\n" +
                 "Jumlah Saudara = " + saudara + "\n" +
                 
                 "#Data Akademik" + "\n" +
                 "IPK = " + str(Ipk) + "\n" +
+                "Nilai Ijazah = " + str(Ijazah) + "\n" +
                 "Prestasi = " + str(Prestasi) + "\n" +
                 
                 "#Hasil Prediksi adalah = " + str(predit)
@@ -161,7 +175,7 @@ def main():
     elif choice == "Hasil":
         st.subheader("Data Hasil Prediksi")
         df = pd.read_csv("Data_prediksi_pengguna.csv")
-        v_data = df.iloc[:, 1:8]
+        v_data = df.iloc[:, 1:9]
         st.dataframe(v_data.set_index(v_data.columns[0]))
         
     elif choice == "Penilaian":
