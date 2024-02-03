@@ -387,7 +387,7 @@ def main():
     elif choice == "Tentang":
         st.subheader("Tentang Aplikasi")
         st.write('Sistem Informasi Prediksi Potensi Mahasiswa ini dibuat dengan menggunakan bahasa pemprograman :blue[Python] dan :blue[Streamlit], sistem ini menggunakan model yang terbentuk dari algoritma :blue[LSTM dan SVM]. Sedangkan data yang digunakan untuk membangun model berasal dari data akademik dan data non-akademikdemik yang diperoleh dari :blue[Universitas Semarang].')
-        st.write('Dalam melakukan prediksi Model ini memiliki tingkat kesalahan sebesar 22%')
+        st.write('Dalam melakukan prediksi Model ini memiliki tingkat kesalahan sebesar 17%')
 
         #st.image(image, caption='Bobot Fitur')
 
