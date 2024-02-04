@@ -15,7 +15,6 @@ image = Image.open('Bobot fitur.jpg')
 
 
 def main():
-    print(sklearn.__version__)
     choice = option_menu(None, ["Beranda","Prediksi","Hasil","Penilaian","Tentang"], 
     icons=['house','trophy', 'camera', 'list-task', 'book'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
@@ -24,7 +23,6 @@ def main():
         
     if choice == "Beranda":
         st.subheader("Definisi dan penjelasan")
-        st.write('Kinerja akademis mahasiswa mengacu pada pencapaian seorang mahasiswa dalam aspek nilai akademik, yang diukur melalui Indeks Prestasi Semester (IPS) dan Indeks Prestasi Kumulatif (IPK).') 
         st.write('Banyak variabel yang mempengaruhi potensi mahasiswa baik variabel perilaku didalam pembelajaran maupun variabel lainnya. Pada sistem informasi prediksi potensi mahasiswa ini variabel yang digunakan adalah variabel akademik dan non-akademik.') 
         st.write('Analisis prediksi potensi mahasiswa berperan vital dalam meningkatkan kualitas pendidikan. Melalui prediksi ini, pendidik dapat menyusun strategi dan alokasi sumber daya yang lebih tepat guna. Prediksi yang dilakukan sejak dini memungkinkan pengambil keputusan untuk mengidentifikasi mahasiswa yang membutuhkan bantuan lebih lanjut, sehingga dapat merencanakan program pembelajaran yang meningkatkan peluang sukses mereka.')
         st.write('Sistem Analisis Prediksi Potensi Mahasiswa ini menjadi alat penting bagi Mahasiswa, Dosen, dan Staf Akademik. Dengan berbasis pada data yang digunakan untuk membangun model prediksi, sistem ini sangat efektif untuk memproyeksikan potensi mahasiswa.')
