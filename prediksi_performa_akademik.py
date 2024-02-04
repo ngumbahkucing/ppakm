@@ -144,13 +144,13 @@ def main():
             #Simpan data
             df = pd.read_csv("Data_prediksi_pengguna.csv")
             new_data = {"Nama":nama, "Status":status, "Jenis Kelamin":jekel, "Umur":umur,
-                        "IPK":ipk, "Semester": semester,
+                        "Ijazah":Ijazah,"IPK":ipk, "Semester": semester,
                         "Ekonomi":pendap, "Saudara":saudara, "Hasil Prediksi":predit
                         }
 
             df = df.append(new_data, ignore_index=True)
             df.to_csv("Data_prediksi_pengguna.csv", index=False)
-            v_data = df.iloc[:, 1:8]
+            v_data = df.iloc[:, 1:9]
             vlast= v_data.tail(1)
             st.dataframe(vlast.set_index(vlast.columns[0]))
             
@@ -158,14 +158,17 @@ def main():
         #menyimpan data agar bisa didownload di txt
         isi = ( "Prediksi Potensi Mahasiswa Menggunakan Data Non-Akademik dan Akademik" + "\n" + "\n" +
                 "#Data Non Akademik" + "\n" +
+                "Status = " + status + "\n" +
                 "Gender = " + jekel + "\n" +
+                "Umur = " + umur + "\n" +
                 "Pendapatan Orang Tua = " + pendap + "\n" +
                 "Jumlah Saudara = " + saudara + "\n" +
                 
                 "#Data Akademik" + "\n" +
+                "Nilai Ijazah = " + str(Ijazah) + "\n" +
                 "IPK = " + str(Ipk) + "\n" +
-                "Prestasi = " + str(Prestasi) + "\n" +
-                
+                "Semester = " + str(semester) + "\n" +
+                "Prestasi = " + str(Prestasi) + "\n\n" +
                 "#Hasil Prediksi adalah = " + str(predit)
                 )
 
@@ -175,7 +178,7 @@ def main():
     elif choice == "Hasil":
         st.subheader("Data Hasil Prediksi")
         df = pd.read_csv("Data_prediksi_pengguna.csv")
-        v_data = df.iloc[:, 1:8]
+        v_data = df.iloc[:, 1:9]
         st.dataframe(v_data.set_index(v_data.columns[0]))
         
     elif choice == "Penilaian":
@@ -405,7 +408,7 @@ def main():
 
         #st.image(image, caption='Bobot Fitur')
 
-        st.write('Untuk informasi lebih lanjut terkait Prediksi Potensi Mahasiswa ini, dapat menghubungi Sri Handayani: 081232566827 ')
+        st.write('Untuk informasi lebih lanjut terkait Prediksi Potensi Mahasiswa ini, dapat menghubungi Sri Handayani - Whatsapp: 081232566827 ')
 
         txt_input= st.text_input('Masukkan Kode Download, Untuk Mendownload Hasil Prediksi', type="password")
 
