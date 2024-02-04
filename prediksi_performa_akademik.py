@@ -19,7 +19,7 @@ def main():
     choice = option_menu(None, ["Beranda","Prediksi","Hasil","Penilaian","Tentang"], 
     icons=['house','trophy', 'camera', 'list-task', 'book'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
-    st.header('Prediksi Performa Akademik Mahasiswa')
+    st.header('Prediksi Potensi Mahasiswa')
     st.write('Oleh Sri Handayani') 
         
     if choice == "Beranda":
