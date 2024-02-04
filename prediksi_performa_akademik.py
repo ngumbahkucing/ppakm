@@ -45,16 +45,30 @@ def main():
 
         st.subheader("Masukkan Data Akademik")
 
-        Ipk = st.text_input('IPK Semester Lalu')
-        Semester = st.selectbox('Semester ke-', ('2','3','4'))
-        Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
-        if Prestasi == "Tidak Ada":
-            Prestasi = 0;
-        elif Prestasi == "Akademik":
-            Prestasi = 1;
+        if status == "Mahasiswa":
+
+
+            Ipk = st.text_input('IPK Semester Lalu')
+            Semester = st.selectbox('Semester ke-', ('2','3','4'))
+            Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
+            if Prestasi == "Tidak Ada":
+                Prestasi = 0;
+            elif Prestasi == "Akademik":
+                Prestasi = 1;
+            else:
+                Prestasi = 2;
+            Ijazah = 0
         else:
-            Prestasi = 2;
-            
+            Ijazah = st.text_input('Nilai ijazah')
+            Ipk = 0
+            Semester = 0
+            Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
+            if Prestasi == "Tidak Ada":
+                Prestasi = 0;
+            elif Prestasi == "Akademik":
+                Prestasi = 1;
+            else:
+                Prestasi = 2;
 
         st.subheader("Masukkan Data Non Akademik")
 
