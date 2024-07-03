@@ -1,3 +1,4 @@
-Nama,Status,Jenis_Kelamin,Umur,IPK,Semester,Ekonomi,Saudara,Hasil Prediksi
-Asih,Mahasiswa,Wanita,21,3.40,3,2.500.000 - 5.000.000,1,[2.96041462]
-Bejo,Mahasiswa,Pria,22,2.95,2,2.500.000 - 5.000.000,2,[2.27346354]
+Nama,Status,Jenis Kelamin,Umur,Nilai Ijazah,IPK,Semester,Ekonomi,Saudara,Hasil Prediksi
+Wati,Mahasiswa,Wanita,19,0,3.2,3,5.000.000 - 7.500.000,2,1
+Ivan,Mahasiswa,Pria,19,0,2.45,3,7.500.000 - 10.000.000,1,1
+Sulaiman,Calon Mahasiswa,Pria,17,90,0.0,0,5.000.000 - 7.500.000,2,1
