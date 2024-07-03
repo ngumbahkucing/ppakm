@@ -9,29 +9,31 @@ from streamlit_option_menu import option_menu
 from PIL import Image
 import sklearn
 
-image = Image.open('Bobot fitur.jpg')
+image = Image.open('Bobotfitur.jpg')
 
 
 
 
 def main():
+    print(sklearn.__version__)
     choice = option_menu(None, ["Beranda","Prediksi","Hasil","Penilaian","Tentang"], 
     icons=['house','trophy', 'camera', 'list-task', 'book'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
-    st.header('Prediksi Potensi Mahasiswa')
+    st.header('Prediksi Performa Akademik Mahasiswa')
     st.write('Oleh Sri Handayani') 
         
     if choice == "Beranda":
         st.subheader("Definisi dan penjelasan")
-        st.write('Banyak variabel yang mempengaruhi potensi mahasiswa baik variabel perilaku didalam pembelajaran maupun variabel lainnya. Pada sistem informasi prediksi potensi mahasiswa ini variabel yang digunakan adalah variabel akademik dan non-akademik.') 
-        st.write('Analisis prediksi potensi mahasiswa berperan vital dalam meningkatkan kualitas pendidikan. Melalui prediksi ini, pendidik dapat menyusun strategi dan alokasi sumber daya yang lebih tepat guna. Prediksi yang dilakukan sejak dini memungkinkan pengambil keputusan untuk mengidentifikasi mahasiswa yang membutuhkan bantuan lebih lanjut, sehingga dapat merencanakan program pembelajaran yang meningkatkan peluang sukses mereka.')
-        st.write('Sistem Analisis Prediksi Potensi Mahasiswa ini menjadi alat penting bagi Mahasiswa, Dosen, dan Staf Akademik. Dengan berbasis pada data yang digunakan untuk membangun model prediksi, sistem ini sangat efektif untuk memproyeksikan potensi mahasiswa.')
-        st.write('Untuk memulai analisis potensi mahasiswa, silakan kunjungi menu Prediksi. Setelah melakukan prediksi, jangan ragu untuk memberikan feedback dan saran untuk pengembangan sistem lebih lanjut melalui menu Penilaian.')
+        st.write('Kinerja akademis mahasiswa mengacu pada pencapaian seorang mahasiswa dalam aspek nilai akademik, yang diukur melalui Indeks Prestasi Semester (IPS) dan Indeks Prestasi Kumulatif (IPK).') 
+        st.write('Banyak variabel yang mempengaruhi performa akademik mahasiswa baik variabel perilaku didalam pembelajaran maupun variabel lainnya. Pada sistem informasi prediksi performa akademik mahasiswa ini variabel yang digunakan adalah variabel akademik dan non-akademik.') 
+        st.write('Analisis prediksi kinerja akademis mahasiswa berperan vital dalam meningkatkan kualitas pendidikan. Melalui prediksi ini, pendidik dapat menyusun strategi dan alokasi sumber daya yang lebih tepat guna. Prediksi yang dilakukan sejak dini memungkinkan pengambil keputusan untuk mengidentifikasi mahasiswa yang membutuhkan bantuan lebih lanjut, sehingga dapat merencanakan program pembelajaran yang meningkatkan peluang sukses mereka.')
+        st.write('Sistem Analisis Prediksi Kinerja Akademis Mahasiswa ini menjadi alat penting bagi Mahasiswa, Dosen, dan Staf Akademik. Dengan berbasis pada data yang digunakan untuk membangun model prediksi, sistem ini sangat efektif untuk memproyeksikan kinerja akademis mahasiswa.')
+        st.write('Untuk memulai analisis prediksi kinerja akademis mahasiswa, silakan kunjungi menu Prediksi. Setelah melakukan prediksi, jangan ragu untuk memberikan feedback dan saran untuk pengembangan sistem lebih lanjut melalui menu Penilaian.')
 
 
     elif choice == "Prediksi":
 
-        st.write('Prediksi potensi mahasiswa ini menggunakan dua sumber data yaitu 1). Data Akademik Mahasiswa IPK Semester dan Data Nilai Ijazah Calon Mahasiswa  2). Data non-akademik (gender, umur, gaji orang tua, jumlah saudara).')
+        st.write('Prediksi performa akademik ini menggunakan dua sumber data yaitu 1). Data Akademik Mahasiswa IPK Semester dan Data Nilai Ijazah Calon Mahasiswa  2). Data non-akademik (gender, umur, gaji orang tua, jumlah saudara).')
         
         st.subheader("Masukkan Data Diri Anda")
         nama = st.text_input("Nama Lengkap")
@@ -44,9 +46,8 @@ def main():
         st.subheader("Masukkan Data Akademik")
 
         if status == "Mahasiswa":
-
-
             Ipk = st.text_input('IPK Semester Lalu')
+            Ijazah = 0
             Semester = st.selectbox('Semester ke-', ('2','3','4'))
             Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
             if Prestasi == "Tidak Ada":
@@ -55,18 +56,17 @@ def main():
                 Prestasi = 1;
             else:
                 Prestasi = 2;
-            Ijazah = 0
         else:
-            Ijazah = st.text_input('Nilai ijazah')
             Ipk = 0
             Semester = 0
+            Ijazah = st.text_input('Nilai Ijazah')
             Prestasi = st.selectbox('Prestasi', ('Tidak Ada','Akademik','Non-Akademik'))
             if Prestasi == "Tidak Ada":
                 Prestasi = 0;
             elif Prestasi == "Akademik":
                 Prestasi = 1;
             else:
-                Prestasi = 2;
+                Prestasi = 2;        
 
         st.subheader("Masukkan Data Non Akademik")
 
@@ -99,8 +99,10 @@ def main():
             Economy = 5
         elif Economy == '7.500.000 - 10.000.000':
             Economy = 6
-        else:
+        elif Economy == '> 10.000.000':
             Economy = 7
+        else:
+            Economy = 0
 
         with open("prediksi_performa_akademik.sav", "rb") as file:
             model = pickle.load(file)
@@ -133,40 +135,43 @@ def main():
             pendap = '> 10.000.000'
 
 
-        if st.button('Prediksi Potensi Mahasiswa'):
+        if st.button('Prediksi Performa'):
             predit = model.predict(
-                [[Gender, Economy, Ipk]]
+                [[Gender, Economy, Ipk, Prestasi, Umur]]
             )
             st.success (f"Hasil Prediksi : %.2f" % predit)
 
             #Simpan data
             df = pd.read_csv("Data_prediksi_pengguna.csv")
-            new_data = {"Nama":nama, "Status":status, "Jenis Kelamin":jekel, "Umur":umur,
-                        "Ijazah":Ijazah,"IPK":ipk, "Semester": semester,
+            new_data = pd.DataFrame({"Nama":nama, "Status":status, "Jenis Kelamin":jekel, "Umur":umur,
+                        "Nilai Ijazah":Ijazah, "IPK":ipk, "Semester": semester,
                         "Ekonomi":pendap, "Saudara":saudara, "Hasil Prediksi":predit
-                        }
+                        })
 
-            df = df.append(new_data, ignore_index=True)
-            df.to_csv("Data_prediksi_pengguna.csv", index=False)
-            v_data = df.iloc[:, 1:9]
+            # Create a new dataframe to hold the combined data
+            df_with_new_data = pd.concat([df, new_data], ignore_index=True)
+
+            # Write the combined data to the CSV file
+            df_with_new_data.to_csv("Data_prediksi_pengguna.csv", index=False)            
+            df = pd.read_csv("Data_prediksi_pengguna.csv")
+            v_data = df_with_new_data.iloc[:, 1:10]
             vlast= v_data.tail(1)
             st.dataframe(vlast.set_index(vlast.columns[0]))
             
 
         #menyimpan data agar bisa didownload di txt
-        isi = ( "Prediksi Potensi Mahasiswa Menggunakan Data Non-Akademik dan Akademik" + "\n" + "\n" +
-                "#Data Non Akademik" + "\n" +
-                "Status = " + status + "\n" +
+        isi = ( "Prediksi Performa Akademik Mahasiswa Menggunakan Data Non-Akademik dan Akademik" + "\n" + "\n" +
+                "###Data Non Akademik" + "\n" +
                 "Gender = " + jekel + "\n" +
                 "Umur = " + umur + "\n" +
                 "Pendapatan Orang Tua = " + pendap + "\n" +
                 "Jumlah Saudara = " + saudara + "\n" +
                 
-                "#Data Akademik" + "\n" +
-                "Nilai Ijazah = " + str(Ijazah) + "\n" +
+                "###Data Akademik" + "\n" +
                 "IPK = " + str(Ipk) + "\n" +
-                "Semester = " + str(semester) + "\n" +
-                "Prestasi = " + str(Prestasi) + "\n\n" +
+                "Nilai Ijazah = " + str(Ijazah) + "\n" +
+                "Prestasi = " + str(Prestasi) + "\n" +
+                
                 "#Hasil Prediksi adalah = " + str(predit)
                 )
 
@@ -176,7 +181,7 @@ def main():
     elif choice == "Hasil":
         st.subheader("Data Hasil Prediksi")
         df = pd.read_csv("Data_prediksi_pengguna.csv")
-        v_data = df.iloc[:, 1:9]
+        v_data = df.iloc[:, 1:10]
         st.dataframe(v_data.set_index(v_data.columns[0]))
         
     elif choice == "Penilaian":
@@ -201,7 +206,7 @@ def main():
                     kemudahan = 1
 
                 kelengkapan = st.radio(
-                    'Kelengkapan dalam memprediksi potensi mahasiswa',
+                    'Kelengkapan dalam memprediksi performa akademik',
                     ('Sangat Baik', 'Baik', 'Cukup Baik','Kurang Baik'))
 
                 if kelengkapan == 'Sangat Baik':
@@ -401,12 +406,12 @@ def main():
 
     elif choice == "Tentang":
         st.subheader("Tentang Aplikasi")
-        st.write('Sistem Informasi Prediksi Potensi Mahasiswa ini dibuat dengan menggunakan bahasa pemprograman :blue[Python] dan :blue[Streamlit], sistem ini menggunakan model yang terbentuk dari algoritma :blue[LSTM dan SVM]. Sedangkan data yang digunakan untuk membangun model berasal dari data akademik dan data non-akademikdemik yang diperoleh dari :blue[Universitas Semarang].')
-        st.write('Dalam melakukan prediksi Model ini memiliki tingkat kesalahan sebesar 17%')
+        st.write('Sistem Informasi Prediksi Performa Akademik Mahasiswa ini dibuat dengan menggunakan bahasa pemprograman :blue[Python] dan :blue[Streamlit], sistem ini menggunakan model yang terbentuk dari algoritma :blue[LSTM dan SVM]. Sedangkan data yang digunakan untuk membangun model berasal dari data akademik dan data non-akademikdemik yang diperoleh dari :blue[Universitas Semarang].')
+        st.write('Dalam melakukan prediksi Model ini memiliki tingkat kesalahan sebesar 22%')
 
         #st.image(image, caption='Bobot Fitur')
 
-        st.write('Untuk informasi lebih lanjut terkait Prediksi Potensi Mahasiswa ini, dapat menghubungi Sri Handayani - Whatsapp: 081232566827 ')
+        st.write('Untuk informasi lebih lanjut terkait Prediksi Performa Akademik Mahasiswa ini, dapat menghubungi Sri Handayani: 081232566827 ')
 
         txt_input= st.text_input('Masukkan Kode Download, Untuk Mendownload Hasil Prediksi', type="password")
 
