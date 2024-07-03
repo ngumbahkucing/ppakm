@@ -9,7 +9,7 @@ from streamlit_option_menu import option_menu
 from PIL import Image
 import sklearn
 
-image = Image.open('Bobotfitur.jpg')
+image = Image.open('Bobot fitur.jpg')
 
 
 
